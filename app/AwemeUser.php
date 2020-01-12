@@ -60,4 +60,9 @@ class AwemeUser extends Model
     {
         return 'https://www.iesdouyin.com/share/user/' . $this->uid;
     }
+
+    public function followTasks()
+    {
+        return $this->hasMany(FollowTask::class);
+    }
 }
