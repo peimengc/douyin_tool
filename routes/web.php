@@ -11,10 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', '/home');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group([
+    'middleware' => ['auth']
+],function () {
+
+    Route::get('/awemeUsers', 'AwemeUserController@index');
+
+    Route::get('/awemeUserCreate/getQrCode', 'AwemeUserCreateController@getQrCode');
+    Route::get('/awemeUserCreate/checkQrCode/{token?}', 'AwemeUserCreateController@checkQrCode');
+    Route::get('/awemeUserCreate/getUserInfo', 'AwemeUserCreateController@getUserInfo');
+
+});
+

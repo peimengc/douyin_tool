@@ -9,15 +9,43 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        .c-dgray {
+            color: #b3b3b3;
+        }
+
+        .c-blue {
+            color: #3490dc;
+        }
+
+        .font08 {
+            font-size: 0.8rem;
+        }
+
+        .font10 {
+            font-size: 1rem;
+        }
+
+        .font15 {
+            font-size: 1.5rem;
+        }
+
+        .table-data tbody tr td {
+            color: #333333;
+            vertical-align: middle;
+            word-break: keep-all;
+            white-space: nowrap;
+        }
+
+        .thum-box img {
+            height: 3.5rem;
+            width: 3.5rem;
+            border-radius: 5px;
+        }
+    </style>
+    @yield('css')
 </head>
 <body>
     <div id="app">
@@ -33,7 +61,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/awemeUsers') }}">抖音号</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -76,5 +106,8 @@
             @yield('content')
         </main>
     </div>
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
+    @yield('js')
 </body>
 </html>
