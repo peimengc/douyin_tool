@@ -79,6 +79,11 @@
                                     账号增粉
                                 </a>
                             </li>
+                            <li class="nav-item {{ active_class(if_uri('awemeUsers/followTasks')) }}">
+                                <a class="nav-link" href="{{ url('/awemeUsers/followTasks') }}">
+                                    增粉任务
+                                </a>
+                            </li>
                         @endcan
                     @endauth
                 </ul>

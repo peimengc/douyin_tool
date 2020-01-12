@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\AwemeUser;
 use App\User;
 
 class AwemeUserPolicy extends BasePolicey
@@ -11,7 +12,7 @@ class AwemeUserPolicy extends BasePolicey
         return false;
     }
 
-    public function addFollowTask(User $user)
+    public function addFollowTask(User $user,AwemeUser $awemeUser)
     {
         return false;
     }

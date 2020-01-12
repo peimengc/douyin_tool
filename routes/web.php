@@ -31,7 +31,10 @@ Route::group([
     Route::get('/awemeUserCreate/getUserInfo', 'AwemeUserCreateController@getUserInfo');
 
     Route::get('/awemeUsersAll','AwemeUserAllController@index');
-    Route::get('/awemeUsers/{awemeUser}/followTasks','FollowTaskController@store');
+
+    Route::get('/awemeUsers/followTasks','FollowTaskController@index');
+    Route::post('/awemeUsers/{awemeUser}/followTask','FollowTaskController@store');
+
 
 });
 
