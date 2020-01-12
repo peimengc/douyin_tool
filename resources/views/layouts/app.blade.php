@@ -44,8 +44,13 @@
             width: 3.5rem;
             border-radius: 5px;
         }
+        #qrCode .modal-body img {
+            width: 100%;
+            height: 100%;
+        }
     </style>
     @yield('css')
+    @stack('cssStack')
 </head>
 <body>
     <div id="app">
@@ -79,6 +84,11 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <button data-toggle="modal" data-target="#qrCode" class="btn btn-sm btn-primary">扫码录入</button>
+                                </a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -106,8 +116,10 @@
             @yield('content')
         </main>
     </div>
+    @include('components._qrCodeModal')
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('js')
+    @stack('jsStack')
 </body>
 </html>
