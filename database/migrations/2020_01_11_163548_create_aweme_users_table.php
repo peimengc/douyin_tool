@@ -27,6 +27,7 @@ class CreateAwemeUsersTable extends Migration
             $table->unsignedInteger('tool_fans')->default(0);
             $table->unsignedInteger('init_follow')->default(0);
             $table->unsignedInteger('init_fans')->default(0);
+            $table->unsignedInteger('today_follow')->default(0);
             $table->string('cookie')->nullable();
             $table->timestamps();
         });

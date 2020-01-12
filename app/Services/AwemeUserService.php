@@ -9,6 +9,12 @@ use Arr;
 
 class AwemeUserService
 {
+    /**
+     * 根据media.douyin.com的userinfo接口返回信息做添加
+     *
+     * @param $mediaUserInfo
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
+     */
     public function saveByMediaUserInfo($mediaUserInfo)
     {
         $attr = [
@@ -24,5 +30,38 @@ class AwemeUserService
         ];
 
         return AwemeUser::query()->updateOrCreate(Arr::only($attr, 'uid'), $attr);
+    }
+
+    /**
+     * 获取
+     * 10个粉丝未到1000
+     * cookie正常
+     * 的账号，增粉
+     *
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|mixed[]
+     */
+    public function getFollowedAwemeUser()
+    {
+        return AwemeUser::query()
+            ->scopes(['cookie'])
+            ->where('fans','<',1000)
+            ->limit(10)
+            ->get();
+    }
+
+    /**
+     * 获取所有
+     * cookie正常
+     * 今日关注未到100
+     * 的账号，用于给其他账号增粉
+     *
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|mixed[]
+     */
+    public function getFollowAwemeUser()
+    {
+        return AwemeUser::query()
+            ->scopes(['cookie'])
+            ->where('today_follow','<',100)
+            ->get();
     }
 }

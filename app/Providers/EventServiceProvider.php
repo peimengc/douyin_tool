@@ -18,6 +18,12 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        'App\Events\AwemeUserFollowSuccess' => [
+            'App\Listeners\AwemeUserFollowSuccess',
+        ],
+        'App\Events\AwemeUserFollowError' => [
+            'App\Listeners\AwemeUserFollowError',
+        ],
     ];
 
     /**

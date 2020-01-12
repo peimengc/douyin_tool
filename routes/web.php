@@ -11,6 +11,9 @@
 |
 */
 
+use App\Helpers\DouYin\FollowUserHelper;
+use App\Services\AwemeUserService;
+
 Route::redirect('/', '/home');
 
 Auth::routes();
@@ -27,5 +30,13 @@ Route::group([
     Route::get('/awemeUserCreate/checkQrCode/{token?}', 'AwemeUserCreateController@checkQrCode');
     Route::get('/awemeUserCreate/getUserInfo', 'AwemeUserCreateController@getUserInfo');
 
+});
+
+
+Route::get('/test',function () {
+    $awemeUserService = new AwemeUserService();
+    $followUserHelper = new FollowUserHelper();
+
+    $followUserHelper->followUsers($awemeUserService->getFollowedAwemeUser(), $awemeUserService->getFollowAwemeUser());
 });
 

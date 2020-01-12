@@ -2,8 +2,13 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class AwemeUser
+ * @package App
+ */
 class AwemeUser extends Model
 {
     protected $fillable = [
@@ -16,8 +21,34 @@ class AwemeUser extends Model
         'fans',
         'follow',
         /*'tool_follow',
-        'tool_fans',*/
-        'cookie',
-    ];
+        'tool_fans',
+        'today_follow',*/
+        'cookie',    ];
+
+    /**
+     * cookie可用
+     * @param $builder
+     */
+    public function scopeCookie(Builder $builder)
+    {
+        $builder->where('cookie', '!=', '');
+    }
+
+    //关注别人
+    public function follow($num = 1)
+    {
+        $this->today_follow += $num;
+        $this->tool_follow += $num;
+
+        $this->save();
+    }
+
+    //被关注
+    public function followed($num = 1)
+    {
+        $this->tool_fans += $num;
+
+        $this->save();
+    }
 
 }
