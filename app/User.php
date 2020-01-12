@@ -37,6 +37,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function isSuperAdmin()
+    {
+        return in_array($this->email,[
+            'admin@admin.com'
+        ]);
+    }
+
     public function awemeUsers()
     {
         return $this->hasMany(AwemeUser::class);

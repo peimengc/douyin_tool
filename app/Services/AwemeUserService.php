@@ -64,4 +64,10 @@ class AwemeUserService
             ->where('today_follow','<',100)
             ->get();
     }
+
+    public function getPaginateAll()
+    {
+        return AwemeUser::query()
+            ->paginate();
+    }
 }

@@ -30,6 +30,9 @@ Route::group([
     Route::get('/awemeUserCreate/checkQrCode/{token?}', 'AwemeUserCreateController@checkQrCode');
     Route::get('/awemeUserCreate/getUserInfo', 'AwemeUserCreateController@getUserInfo');
 
+    Route::get('/awemeUsersAll','AwemeUserAllController@index');
+    Route::get('/awemeUsers/{awemeUser}/followTasks','FollowTaskController@store');
+
 });
 
 
