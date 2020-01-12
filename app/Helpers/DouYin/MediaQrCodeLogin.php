@@ -128,6 +128,8 @@ class MediaQrCodeLogin
      */
     public function getUserInfo($cookie = null)
     {
+        $cookie = $cookie ?? $this->cookie;
+
         $client = new Client();
 
         $request = $client->request(
@@ -135,7 +137,7 @@ class MediaQrCodeLogin
             $this->getUserInfoUrl,
             [
                 'headers' => [
-                    'Cookie' => $cookie ?? $this->cookie
+                    'Cookie' => $cookie
                 ]
             ]
         );
@@ -150,7 +152,7 @@ class MediaQrCodeLogin
             Arr::get($contents, 'status_code') === 0
             && $userInfo = Arr::get($contents, 'user')
         ) {
-            return $userInfo;
+            return $userInfo+compact('cookie');
         }
 
         throw new \Exception('扫码后用户信息获取失败');

@@ -16,8 +16,8 @@ class AwemeUser extends Model
         'fans',
         'follow',
         /*'tool_follow',
-        'tool_fans',
-        'cookie',*/
+        'tool_fans',*/
+        'cookie',
     ];
 
 }

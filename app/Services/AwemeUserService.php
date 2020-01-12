@@ -20,6 +20,7 @@ class AwemeUserService
             'avatar_uri' => Arr::get($mediaUserInfo, 'avatar_thumb.url_list.0'),
             'fans' => Arr::get($mediaUserInfo, 'follower_count', 0),
             'follow' => Arr::get($mediaUserInfo, 'following_count', 0),
+            'cookie' => Arr::get($mediaUserInfo, 'cookie'),
         ];
 
         return AwemeUser::query()->updateOrCreate(Arr::only($attr, 'uid'), $attr);

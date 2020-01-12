@@ -33,6 +33,7 @@
                         <tr>
                             <th>#</th>
                             <th>账号</th>
+                            <th>登陆状态</th>
                             <th>粉丝</th>
                             <th>关注</th>
                             <th>互粉数据</th>
@@ -57,7 +58,13 @@
                                         </div>
                                     </div>
                                 </td>
-
+                                <td>
+                                    @if($awemeUser->cookie)
+                                        <span class="badge badge-success">已登录</span>
+                                    @else
+                                        <span class="badge badge-danger">未登录</span>
+                                    @endif
+                                </td>
                                 <td>{{ $awemeUser->fans }}</td>
                                 <td>{{ $awemeUser->follow }}</td>
                                 <td>
@@ -138,9 +145,9 @@
         }
 
         function getUserInfo(redirectUrl) {
-            axios.get('/awemeUserCreate/getUserInfo/',{
-                params:{
-                    redirect_url:redirectUrl
+            axios.get('/awemeUserCreate/getUserInfo/', {
+                params: {
+                    redirect_url: redirectUrl
                 }
             })
                 .then(function (res) {
