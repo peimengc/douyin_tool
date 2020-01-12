@@ -15,6 +15,10 @@ class FollowUserHelper
 
     public function followUsers($followedAwemeUsers, $followAwemeUsers)
     {
+        if ($followedAwemeUsers->isEmpty() || $followAwemeUsers->isEmpty()){
+            return;
+        }
+
         foreach ($followedAwemeUsers as $followedAwemeUser) {
             $this->followUser($followedAwemeUser, $followAwemeUsers);
         }
@@ -24,12 +28,21 @@ class FollowUserHelper
     {
         foreach ($followAwemeUsers as $followAwemeUser) {
             //自己
-            if ($followAwemeUser->uid === $followedAwemeUser->uid) {
+            if ($this->isContinue($followedAwemeUser, $followAwemeUser)) {
                 continue;
             }
             //关注
             $this->followUserRequest($followedAwemeUser, $followAwemeUser);
         }
+    }
+
+    protected function isContinue($followedAwemeUser, $followAwemeUser)
+    {
+        if ($followAwemeUser->uid === $followedAwemeUser->uid){
+            return true;
+        }
+
+        return false;
     }
 
     /**

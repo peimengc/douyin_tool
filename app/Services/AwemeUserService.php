@@ -47,7 +47,7 @@ class AwemeUserService
             ->with(['followTask'])
             ->scopes(['cookie'])
             ->has('followTask')
-            ->limit(10)
+            ->limit(5)
             ->get();
     }
 
