@@ -23,7 +23,12 @@ class AwemeUser extends Model
         /*'tool_follow',
         'tool_fans',
         'today_follow',*/
-        'cookie',    ];
+        'cookie',
+    ];
+
+    protected $appends = [
+        'share_url'
+    ];
 
     /**
      * cookie可用
@@ -51,4 +56,8 @@ class AwemeUser extends Model
         $this->save();
     }
 
+    public function getShareUrlAttribute()
+    {
+        return 'https://www.iesdouyin.com/share/user/' . $this->uid;
+    }
 }
