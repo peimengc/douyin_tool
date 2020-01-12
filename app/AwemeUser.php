@@ -65,4 +65,10 @@ class AwemeUser extends Model
     {
         return $this->hasMany(FollowTask::class);
     }
+
+    public function followTask()
+    {
+        return $this->hasOne(FollowTask::class)->where('status',1);
+    }
+
 }

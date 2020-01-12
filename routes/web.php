@@ -33,15 +33,12 @@ Route::group([
     Route::get('/awemeUsersAll','AwemeUserAllController@index');
 
     Route::get('/awemeUsers/followTasks','FollowTaskController@index');
-    Route::get('/awemeUsers/{awemeUserId}/followTask','FollowTaskController@store');
+    Route::post('/awemeUsers/{awemeUserId}/followTask','FollowTaskController@store');
 
 });
 
 
 Route::get('/test',function () {
-    $awemeUserService = new AwemeUserService();
-    $followUserHelper = new FollowUserHelper();
-
-    $followUserHelper->followUsers($awemeUserService->getFollowedAwemeUser(), $awemeUserService->getFollowAwemeUser());
+    \App\Jobs\AwemeAddFansPodcast::dispatchNow();
 });
 

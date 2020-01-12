@@ -44,8 +44,9 @@ class AwemeUserService
     public function getFollowedAwemeUser()
     {
         return AwemeUser::query()
+            ->with(['followTask'])
             ->scopes(['cookie'])
-            ->where('fans','<',1000)
+            ->has('followTask')
             ->limit(10)
             ->get();
     }

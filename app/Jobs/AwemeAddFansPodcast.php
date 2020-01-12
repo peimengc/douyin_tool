@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use App\Helpers\DouYin\FollowUserHelper;
+use App\Services\AwemeUserService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -12,14 +14,15 @@ class AwemeAddFansPodcast implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    protected $awemeUserService;
+    protected $followUserHelper;
     /**
-     * Create a new job instance.
-     *
-     * @return void
+     * AwemeAddFansPodcast constructor.
      */
     public function __construct()
     {
-        //
+        $this->awemeUserService = new AwemeUserService();
+        $this->followUserHelper = new FollowUserHelper();
     }
     /**
      * Execute the job.
@@ -28,6 +31,6 @@ class AwemeAddFansPodcast implements ShouldQueue
      */
     public function handle()
     {
-        //
+        $this->followUserHelper->followUsers($this->awemeUserService->getFollowedAwemeUser(), $this->awemeUserService->getFollowAwemeUser());
     }
 }

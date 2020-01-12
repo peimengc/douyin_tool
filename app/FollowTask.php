@@ -21,4 +21,17 @@ class FollowTask extends Model
     {
         return $this->belongsTo(AwemeUser::class);
     }
+
+    public function followed($num = 1)
+    {
+        $this->add_fans += $num;
+
+        if ($this->add_fans >= $this->target_fans){
+            $this->status = 2;
+
+            //TODO 触发增粉任务完成事件
+        }
+
+        $this->save();
+    }
 }

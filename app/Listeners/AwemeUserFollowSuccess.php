@@ -28,5 +28,7 @@ class AwemeUserFollowSuccess
     {
         $event->followedAwemeUser->followed();
         $event->followAwemeUser->follow();
+        //增粉任务修改
+        $event->followedAwemeUser->followTask->followed();
     }
 }
