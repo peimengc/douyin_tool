@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 
 class AwemeUserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $awemeUsers = AwemeUser::query()
+        $awemeUsers = $request->user()->awemeUsers()
             ->paginate();
 
         return view('awemeUser.index',compact('awemeUsers'));
