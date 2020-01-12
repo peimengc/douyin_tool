@@ -19,7 +19,7 @@ class AwemeUserAllController extends Controller
 
     public function index()
     {
-        $awemeUsers = $this->awemeUserService->getPaginateAll();
+        $awemeUsers = $this->awemeUserService->paginate();
 
         return view('awemeUserFollow.index', compact('awemeUsers'));
     }

@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\AwemeUser;
 use Arr;
+use Illuminate\Database\Eloquent\Builder;
 
 class AwemeUserService
 {
@@ -65,9 +66,18 @@ class AwemeUserService
             ->get();
     }
 
-    public function getPaginateAll()
+    public function paginate($perPage = null, $columns = ['*'])
     {
         return AwemeUser::query()
-            ->paginate();
+            ->paginate($perPage,$columns);
+    }
+
+    public function findAndNotTask($awemeUserId)
+    {
+        return AwemeUser::query()
+            ->whereDoesntHave('followTasks',function (Builder $builder) {
+                $builder->where('status',1);
+            })
+            ->findOrFail($awemeUserId);
     }
 }
