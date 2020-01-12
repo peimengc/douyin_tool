@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\AwemeUser;
 use App\Helpers\DouYin\MediaQrCodeLogin;
+use App\Observers\AwemeUserObserver;
+use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,5 +27,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        AwemeUser::observe(AwemeUserObserver::class);
     }
 }

@@ -34,9 +34,9 @@
                             <th>#</th>
                             <th>账号</th>
                             <th>登陆状态</th>
-                            <th>粉丝</th>
-                            <th>关注</th>
                             <th>互粉数据</th>
+                            <th>当前数据</th>
+                            <th>初始数据</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -54,6 +54,9 @@
                                                 <div class="font08 c-dgray">
                                                     <span>抖音号：{{ $awemeUser->unique_id }}</span>
                                                 </div>
+                                                <div class="font08 c-dgray">
+                                                    <span>更新于：{{ $awemeUser->updated_at->diffForHumans() }}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -65,12 +68,20 @@
                                         <span class="badge badge-danger">未登录</span>
                                     @endif
                                 </td>
-                                <td>{{ $awemeUser->fans }}</td>
-                                <td>{{ $awemeUser->follow }}</td>
                                 <td>
                                     <b>粉丝：</b>{{ $awemeUser->tool_fans }}
                                     <br>
                                     <b>关注：</b>{{ $awemeUser->tool_follow }}
+                                </td>
+                                <td>
+                                    <b>粉丝：</b>{{ $awemeUser->fans }}
+                                    <br>
+                                    <b>关注：</b>{{ $awemeUser->follow }}
+                                </td>
+                                <td>
+                                    <b>粉丝：</b>{{ $awemeUser->init_fans }}
+                                    <br>
+                                    <b>关注：</b>{{ $awemeUser->init_follow }}
                                 </td>
                             </tr>
                         @endforeach
