@@ -71,4 +71,9 @@ class AwemeUser extends Model
         return $this->hasOne(FollowTask::class)->where('status',1);
     }
 
+    public function followeds()
+    {
+        return $this->hasManyThrough(static::class,'follow_followed','followed_id','follow_id','id','id');
+    }
+
 }
