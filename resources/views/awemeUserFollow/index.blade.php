@@ -13,17 +13,30 @@
             </div>
             {{--search--}}
             <div class="col-md-12 my-3">
-                <form>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="btn-group">
+                <form method="get" action="">
+                    <div class="form-row">
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="关键字搜索" name="keywords" value="{{ request('keywords') }}">
+                        </div>
+                        <div class="col">
+                            <select class="form-control" name="user_id">
+                                <option value="">请选择用户</option>
+                                @foreach($users as $user)
+                                    <option value="{{ $user->id }}"
+                                            @if((int)request('user_id') === $user->id) selected @endif>{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col">
+                            <div class="btn-group" role="group" aria-label="Basic example">
                                 <button type="submit" class="btn btn-primary">提交</button>
-                                <a class="btn btn-secondary" href="{{ url()->current() }}">返回</a>
+                                <a href="{{ url()->current() }}" class="btn btn-secondary">返回</a>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
+
             {{--table--}}
             <div class="col-md-12">
                 <div class="table-responsive">

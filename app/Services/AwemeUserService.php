@@ -23,7 +23,7 @@ class AwemeUserService
             'uid' => Arr::get($mediaUserInfo, 'uid'),
             'unique_id' => Arr::get($mediaUserInfo, 'unique_id'),
             'short_id' => Arr::get($mediaUserInfo, 'short_id'),
-            'nick' => Arr::get($mediaUserInfo,'nickname'),
+            'nick' => Arr::get($mediaUserInfo, 'nickname'),
             'avatar_uri' => Arr::get($mediaUserInfo, 'avatar_thumb.url_list.0'),
             'fans' => Arr::get($mediaUserInfo, 'follower_count', 0),
             'follow' => Arr::get($mediaUserInfo, 'following_count', 0),
@@ -44,7 +44,7 @@ class AwemeUserService
     public function getFollowedAwemeUser()
     {
         return AwemeUser::query()
-            ->with(['followTask','followeds'])
+            ->with(['followTask', 'followeds'])
             ->scopes(['cookie'])
             ->has('followTask')
             ->limit(1)
@@ -63,21 +63,34 @@ class AwemeUserService
     {
         return AwemeUser::query()
             ->scopes(['cookie'])
-            ->where('today_follow','<',100)
+            ->where('today_follow', '<', 100)
             ->get();
     }
 
     public function paginate($perPage = null, $columns = ['*'])
     {
         return AwemeUser::query()
-            ->paginate($perPage,$columns);
+            ->when(request('keywords'), function (Builder $builder, $keywords) {
+                $builder->where(function (Builder $builder) use ($keywords) {
+                    if (is_string($keywords)) {
+                        $builder->where('nick', 'like', "%{$keywords}%")
+                            ->orWhere('unique_id', 'like', "%{$keywords}%");
+                    } else {
+                        $builder->where('uid', $keywords)->orWhere('short_id', $keywords);
+                    }
+                });
+            })
+            ->when(request('user_id'), function (Builder $builder, $user_id) {
+                $builder->where('user_id', $user_id);
+            })
+            ->paginate($perPage, $columns);
     }
 
     public function findAndNotTask($awemeUserId)
     {
         return AwemeUser::query()
-            ->whereDoesntHave('followTasks',function (Builder $builder) {
-                $builder->where('status',1);
+            ->whereDoesntHave('followTasks', function (Builder $builder) {
+                $builder->where('status', 1);
             })
             ->findOrFail($awemeUserId);
     }
