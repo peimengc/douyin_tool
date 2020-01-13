@@ -24,7 +24,14 @@ class FollowTaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'target_fans' => ['required','min:1'],
+            'target_fans' => ['required','numeric','min:1'],
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'target_fans'=>'目标粉丝'
         ];
     }
 }

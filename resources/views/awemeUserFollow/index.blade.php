@@ -49,6 +49,7 @@
                             <th>互粉数据</th>
                             <th>当前数据</th>
                             <th>初始数据</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -95,6 +96,16 @@
                                     <br>
                                     <b>关注：</b>{{ $awemeUser->init_follow }}
                                 </td>
+                                <td>
+                                    <div class="btn btn-group-sm">
+                                        <button
+                                            class="btn btn-primary"
+                                            data-url="{{ $awemeUser->addFollowTaskUrl() }}"
+                                            data-toggle="modal"
+                                            data-target="#addFollowTask"
+                                        >增粉</button>
+                                    </div>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -107,7 +118,7 @@
         </div>
     </div>
 
-    {{--扫码modal--}}
+    @include('awemeUserFollow._addFollowTaskModal')
 
 @endsection
 

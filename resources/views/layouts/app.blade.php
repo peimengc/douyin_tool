@@ -131,7 +131,23 @@
             </div>
         </div>
     </nav>
+    <div class="container px-0 pt-4">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
+        @if($alert = session('alert'))
+            <div class="alert alert-{{ $alert['type'] ?? 'info' }}" role="alert">
+                {{ $alert['content'] ?? '发生了什么？' }}
+            </div>
+        @endif
+    </div>
     <main class="py-4">
         @yield('content')
     </main>

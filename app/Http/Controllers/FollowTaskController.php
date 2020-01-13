@@ -37,8 +37,11 @@ class FollowTaskController extends Controller
 
         $this->followTaskService->add($awemeUser, $request->all());
 
-        return [
-            'status' => 1
-        ];
+        return back()->with([
+            'alert' => [
+                'type' => 'success',
+                'content' => "\"{$awemeUser->nick}\" 已加入增粉任务列表",
+            ]
+        ]);
     }
 }

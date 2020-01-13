@@ -42,6 +42,12 @@ class AwemeUser extends Model
 
     //============================================
 
+    //增粉url
+    public function addFollowTaskUrl()
+    {
+        return url('/awemeUsers/'.$this->id.'/followTask');
+    }
+
     //关注别人
     public function follow($num = 1)
     {
