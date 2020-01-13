@@ -30,6 +30,7 @@ class AwemeUser extends Model
         'share_url'
     ];
 
+    //==========================================
     /**
      * cookie可用
      * @param $builder
@@ -38,6 +39,8 @@ class AwemeUser extends Model
     {
         $builder->where('cookie', '!=', '');
     }
+
+    //============================================
 
     //关注别人
     public function follow($num = 1)
@@ -56,11 +59,14 @@ class AwemeUser extends Model
         $this->save();
     }
 
+    //========================================
+
     public function getShareUrlAttribute()
     {
         return 'https://www.iesdouyin.com/share/user/' . $this->uid;
     }
 
+    //======================================
     public function followTasks()
     {
         return $this->hasMany(FollowTask::class);
@@ -73,7 +79,7 @@ class AwemeUser extends Model
 
     public function followeds()
     {
-        return $this->hasManyThrough(static::class,'follow_followed','followed_id','follow_id','id','id');
+        return $this->belongsToMany(static::class,'follow_followed','followed_id','follow_id','id','id');
     }
 
 }

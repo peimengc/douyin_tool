@@ -44,10 +44,10 @@ class AwemeUserService
     public function getFollowedAwemeUser()
     {
         return AwemeUser::query()
-            ->with(['followTask'])
+            ->with(['followTask','followeds'])
             ->scopes(['cookie'])
             ->has('followTask')
-            ->limit(5)
+            ->limit(1)
             ->get();
     }
 
