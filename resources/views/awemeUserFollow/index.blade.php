@@ -16,7 +16,8 @@
                 <form method="get" action="">
                     <div class="form-row">
                         <div class="col">
-                            <input type="text" class="form-control" placeholder="关键字搜索" name="keywords" value="{{ request('keywords') }}">
+                            <input type="text" class="form-control" placeholder="关键字搜索" name="keywords"
+                                   value="{{ request('keywords') }}">
                         </div>
                         <div class="col">
                             <select class="form-control" name="user_id">
@@ -98,12 +99,19 @@
                                 </td>
                                 <td>
                                     <div class="btn btn-group-sm">
-                                        <button
-                                            class="btn btn-primary"
-                                            data-url="{{ $awemeUser->addFollowTaskUrl() }}"
-                                            data-toggle="modal"
-                                            data-target="#addFollowTask"
-                                        >增粉</button>
+                                        @if(!$awemeUser->followTask)
+                                            <button
+                                                class="btn btn-primary"
+                                                data-url="{{ $awemeUser->addFollowTaskUrl() }}"
+                                                data-toggle="modal"
+                                                data-target="#addFollowTask"
+                                            >增粉
+                                            </button>
+                                        @else
+                                            <span class="badge badge-success"
+                                                  title="目标：{{ $awemeUser->followTask->target_fans }};已增：{{ $awemeUser->followTask->add_fans }}">
+                                                增粉中..</span>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

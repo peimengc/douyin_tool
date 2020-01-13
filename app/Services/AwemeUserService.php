@@ -70,6 +70,7 @@ class AwemeUserService
     public function paginate($perPage = null, $columns = ['*'])
     {
         return AwemeUser::query()
+            ->with(['followTask'])
             ->when(request('keywords'), function (Builder $builder, $keywords) {
                 $builder->where(function (Builder $builder) use ($keywords) {
                     if (is_string($keywords)) {
