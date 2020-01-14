@@ -11,9 +11,6 @@
 |
 */
 
-use App\Helpers\DouYin\FollowUserHelper;
-use App\Services\AwemeUserService;
-
 Route::redirect('/', '/home');
 
 Auth::routes();
@@ -35,10 +32,6 @@ Route::group([
     Route::get('/awemeUsers/followTasks','FollowTaskController@index');
     Route::post('/awemeUsers/{awemeUserId}/followTask','FollowTaskController@store');
 
-});
-
-
-Route::get('/test',function () {
-    \App\Jobs\AwemeAddFansPodcast::dispatchNow();
+    Route::get('/followTasks/{followTask}/addFans','FollowTaskController@addFans');
 });
 

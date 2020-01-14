@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\FollowTask;
 use App\Helpers\DouYin\FollowUserHelper;
 use App\Services\AwemeUserService;
 use Illuminate\Bus\Queueable;
@@ -16,14 +17,19 @@ class AwemeAddFansPodcast implements ShouldQueue
 
     protected $awemeUserService;
     protected $followUserHelper;
+    protected $followTask;
+
     /**
      * AwemeAddFansPodcast constructor.
+     * @param FollowTask $followTask
      */
-    public function __construct()
+    public function __construct(FollowTask $followTask)
     {
         $this->awemeUserService = new AwemeUserService();
         $this->followUserHelper = new FollowUserHelper();
+        $this->followTask = $followTask;
     }
+
     /**
      * Execute the job.
      *
@@ -31,6 +37,6 @@ class AwemeAddFansPodcast implements ShouldQueue
      */
     public function handle()
     {
-        $this->followUserHelper->followUsers($this->awemeUserService->getFollowedAwemeUser(), $this->awemeUserService->getFollowAwemeUser());
+        $this->followUserHelper->followUser($this->followTask, $this->awemeUserService->getFollowAwemeUser($this->followTask));
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AwemeUser;
 use App\FollowTask;
 use App\Http\Requests\FollowTaskRequest;
+use App\Jobs\AwemeAddFansPodcast;
 use App\Services\AwemeUserService;
 use App\Services\FollowTaskService;
 use Illuminate\Http\Request;
@@ -41,6 +42,19 @@ class FollowTaskController extends Controller
             'alert' => [
                 'type' => 'success',
                 'content' => "\"{$awemeUser->nick}\" 已加入增粉任务列表",
+            ]
+        ]);
+    }
+
+    public function addFans(FollowTask $followTask)
+    {
+        $followTask->load('awemeUser.followeds');
+
+        AwemeAddFansPodcast::dispatch($followTask);
+
+        return back()->with([
+            'alert' => [
+                'content' => '正在增粉。。。'
             ]
         ]);
     }

@@ -35,6 +35,7 @@
                             <th>状态</th>
                             <th>增粉数据</th>
                             <th>对比数据</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -58,6 +59,11 @@
                                     <b>粉丝：</b>{{ $followTask->init_fans }} -> {{ $followTask->awemeUser->fans }}
                                     <br>
                                     <b>关注：</b>{{ $followTask->init_follow }} -> {{ $followTask->awemeUser->follow }}
+                                </td>
+                                <td>
+                                    @if($followTask->status===1)
+                                        <a href="{{ $followTask->addFansUrl() }}" class="btn btn-sm btn-primary">运行</a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

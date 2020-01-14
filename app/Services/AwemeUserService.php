@@ -5,6 +5,7 @@ namespace App\Services;
 
 
 use App\AwemeUser;
+use App\FollowTask;
 use Arr;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -57,13 +58,16 @@ class AwemeUserService
      * 今日关注未到100
      * 的账号，用于给其他账号增粉
      *
-     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|mixed[]
+     * @param FollowTask $followTask
+     * @return Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection|mixed[]
      */
-    public function getFollowAwemeUser()
+    public function getFollowAwemeUser(FollowTask $followTask)
     {
         return AwemeUser::query()
             ->scopes(['cookie'])
             ->where('today_follow', '<', 100)
+            ->whereNotIn('id', $followTask->awemeUser->followeds->pluck('id')->push($followTask->awemeUser->id))
+            ->limit($followTask->rel_target_fans)
             ->get();
     }
 

@@ -3,6 +3,7 @@
 namespace App\Events;
 
 use App\AwemeUser;
+use App\FollowTask;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -15,22 +16,22 @@ class AwemeUserFollowSuccess
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $followedAwemeUser;
+    public $followTask;
     public $followAwemeUser;
     public $followResponse;
 
     /**
      * AwemeUserFollowError constructor.
-     * @param AwemeUser $followedAwemeUser
+     * @param FollowTask $followTask
      * @param AwemeUser $followAwemeUser
      * @param $followResponse
      */
     public function __construct(
-        AwemeUser $followedAwemeUser,
+        FollowTask $followTask,
         AwemeUser $followAwemeUser,
         $followResponse)
     {
-        $this->followedAwemeUser = $followedAwemeUser;
+        $this->followTask = $followTask;
         $this->followAwemeUser = $followAwemeUser;
         $this->followResponse = $followResponse;
     }

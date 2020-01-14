@@ -34,4 +34,14 @@ class FollowTask extends Model
 
         $this->save();
     }
+
+    public function getRelTargetFansAttribute()
+    {
+        return $this->target_fans - $this->add_fans;
+    }
+
+    public function addFansUrl()
+    {
+        return url('/followTasks/'.$this->id.'/addFans');
+    }
 }

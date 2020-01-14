@@ -27,12 +27,12 @@ class AwemeUserFollowSuccess
     public function handle(Event $event)
     {
         //被关注号数据更改
-        $event->followedAwemeUser->followed();
+        $event->followTask->awemeUser->followed();
         //关注号数据更改
         $event->followAwemeUser->follow();
         //增加增粉日志 （谁关注了谁）
-        $event->followedAwemeUser->followeds()->attach($event->followAwemeUser);
+        $event->followTask->awemeUser->followeds()->attach($event->followAwemeUser);
         //增粉任务修改
-        $event->followedAwemeUser->followTask->followed();
+        $event->followTask->followed();
     }
 }
