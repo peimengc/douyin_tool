@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\AwemeUserTodayFollowZeroPodcast;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -26,6 +27,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        //账号今日关注数每日00：00 归零
+        $schedule->job(new AwemeUserTodayFollowZeroPodcast())->dailyAt('00:00');
     }
 
     /**
