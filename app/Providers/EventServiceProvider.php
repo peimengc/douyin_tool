@@ -24,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\AwemeUserFollowError' => [
             'App\Listeners\AwemeUserFollowError',
         ],
+        'App\Events\AwemeUserCookieInvalid' => [
+            'App\Listeners\AwemeUserClearCookie',
+        ],
     ];
 
     /**

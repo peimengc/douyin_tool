@@ -5,6 +5,7 @@ namespace App\Helpers\DouYin;
 
 
 use App\AwemeUser;
+use App\Events\AwemeUserCookieInvalid;
 use App\Exceptions\MediaQrCodeCookieException;
 use GuzzleHttp\Client;
 use Arr;
@@ -146,7 +147,8 @@ class MediaQrCodeLogin
         $contents = $this->geUserInfoContentsByCookie($awemeUser->cookie);
 
         if ($this->cookieInvalid($contents)){
-            throw new MediaQrCodeCookieException('Cookie失效');
+            //触发cookie失效事件
+            event(new AwemeUserCookieInvalid($awemeUser));
         }
 
         return $this->abstractUserInfoByContent($contents);

@@ -66,6 +66,13 @@ class AwemeUser extends Model
         $this->save();
     }
 
+    //清空cookie
+    public function clearCookie()
+    {
+        $this->cookie = null;
+        $this->save();
+    }
+
     //========================================
 
     public function getShareUrlAttribute()
