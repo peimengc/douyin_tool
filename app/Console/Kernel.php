@@ -27,6 +27,9 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        //队列信息监控
+        $schedule->command('horizon:snapshot')->everyFiveMinutes();
+
         //账号今日关注数每日00：00 归零
         $schedule->job(new AwemeUserTodayFollowZeroPodcast())->dailyAt('00:00');
     }
