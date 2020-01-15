@@ -35,3 +35,7 @@ Route::group([
     Route::get('/followTasks/{followTask}/addFans','FollowTaskController@addFans');
 });
 
+Route::get('test',function () {
+    \App\Jobs\UpdateUserInfoPodcast::dispatch(\App\AwemeUser::query()->first());
+});
+
