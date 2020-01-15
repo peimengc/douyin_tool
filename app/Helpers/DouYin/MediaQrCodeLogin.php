@@ -4,6 +4,7 @@
 namespace App\Helpers\DouYin;
 
 
+use App\AwemeUser;
 use App\Exceptions\MediaQrCodeCookieException;
 use GuzzleHttp\Client;
 use Arr;
@@ -58,6 +59,7 @@ class MediaQrCodeLogin
         return json_decode($request->getBody()->getContents(), 1);
     }
 
+
     /**
      * 请求扫码返回的redirect_url，
      * 重定向两次，第二次有set-cookie
@@ -66,7 +68,7 @@ class MediaQrCodeLogin
      * @return $this
      * @throws \Exception
      */
-    public function getCookie($redirectUrl)
+    public function setCookie($redirectUrl)
     {
 
         $client = new Client();
@@ -78,7 +80,6 @@ class MediaQrCodeLogin
                 'allow_redirects' => false,//禁止重定向
             ]
         );
-
 
         $location = $request->getHeader('location')[0];
 
@@ -95,6 +96,12 @@ class MediaQrCodeLogin
         }
 
         throw new \Exception('扫码后Cookie获取失败');
+    }
+
+    //获取cookie
+    public function getCookie($redirectUrl = null)
+    {
+        return $redirectUrl ? $this->setCookie($redirectUrl)->cookie : $this->cookie;
     }
 
     /**
@@ -119,17 +126,41 @@ class MediaQrCodeLogin
         return false;
     }
 
-    /**
-     * 根据cookie获取userInfo
-     * @param $cookie
-     * @return mixed
-     * @throws \Exception
-     * @throws MediaQrCodeCookieException
-     */
+    //根据cookie获取userInfo
     public function getUserInfo($cookie = null)
     {
         $cookie = $cookie ?? $this->cookie;
 
+        $contents = $this->geUserInfoContentsByCookie($cookie);
+
+        if ($this->cookieInvalid($contents)){
+            throw new MediaQrCodeCookieException('Cookie失效');
+        }
+        //提取userinfo
+        return $this->abstractUserInfoByContent($contents);
+    }
+
+    //根据数据库的抖音账号数据获取userInfo
+    public function getUserInfoByModel(AwemeUser $awemeUser)
+    {
+        $contents = $this->geUserInfoContentsByCookie($awemeUser->cookie);
+
+        if ($this->cookieInvalid($contents)){
+            throw new MediaQrCodeCookieException('Cookie失效');
+        }
+
+        return $this->abstractUserInfoByContent($contents);
+    }
+
+    //cookie是否无效
+    protected function cookieInvalid($contents)
+    {
+        return Arr::get($contents, 'status_code') === 8;
+    }
+
+    //根据cookie获取contents
+    protected function geUserInfoContentsByCookie($cookie)
+    {
         $client = new Client();
 
         $request = $client->request(
@@ -137,22 +168,22 @@ class MediaQrCodeLogin
             $this->getUserInfoUrl,
             [
                 'headers' => [
-                    'Cookie' => $cookie
+                    'Cookie' => ($cookie instanceof AwemeUser) ? $cookie->cookie : $cookie
                 ]
             ]
         );
 
-        $contents = json_decode($request->getBody()->getContents(), 1);
+        return json_decode($request->getBody()->getContents(), 1);
+    }
 
-        if (Arr::get($contents, 'status_code') === 8){
-            throw new MediaQrCodeCookieException('Cookie失效');
-        }
-
+    //从抖音的response中提取userInfo
+    protected function abstractUserInfoByContent($contents)
+    {
         if (
             Arr::get($contents, 'status_code') === 0
             && $userInfo = Arr::get($contents, 'user')
         ) {
-            return $userInfo+compact('cookie');
+            return $userInfo;
         }
 
         throw new \Exception('扫码后用户信息获取失败');

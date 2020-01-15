@@ -24,6 +24,7 @@ class AwemeUser extends Model
         'tool_fans',
         'today_follow',*/
         'cookie',
+        'update_time',
     ];
 
     protected $appends = [

@@ -29,6 +29,7 @@ class CreateAwemeUsersTable extends Migration
             $table->unsignedInteger('init_fans')->default(0);
             $table->unsignedInteger('today_follow')->default(0);
             $table->string('cookie')->nullable();
+            $table->timestamp('update_time')->index()->nullable()->comment('更新时间，通过抖音api');
             $table->timestamps();
         });
     }

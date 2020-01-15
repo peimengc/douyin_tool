@@ -34,8 +34,3 @@ Route::group([
 
     Route::get('/followTasks/{followTask}/addFans','FollowTaskController@addFans');
 });
-
-Route::get('test',function () {
-    \App\Jobs\AwemeUserTodayFollowZeroPodcast::dispatch();
-});
-

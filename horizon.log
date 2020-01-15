@@ -1,1 +1,3 @@
 Horizon started successfully.
+[2020-01-15 11:10:41][1] Processing: App\Jobs\UpdateUserInfoPodcast
+[2020-01-15 11:10:41][1] Failed:     App\Jobs\UpdateUserInfoPodcast

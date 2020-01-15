@@ -16,24 +16,29 @@ class UpdateUserInfoPodcast implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $awemeUser;
+    public $timeout = 300;
 
     /**
      * UpdateUserInfoPodcast constructor.
      * @param MediaQrCodeLogin $mediaQrCodeLogin
      * @param AwemeUser $awemeUser
      */
-    public function __construct(AwemeUser $awemeUser)
+    public function __construct()
     {
-        $this->awemeUser = $awemeUser;
     }
 
     /**
      * @param MediaQrCodeLogin $mediaQrCodeLogin
      * @param AwemeUserService $awemeUserService
-     * @throws \App\Exceptions\MediaQrCodeCookieException
      */
     public function handle(MediaQrCodeLogin $mediaQrCodeLogin,AwemeUserService $awemeUserService)
     {
-        $awemeUserService->saveByMediaUserInfo($mediaQrCodeLogin->getUserInfo($this->awemeUser->cookie));
+        $awemeUserService->getSomeToUpdate()->each(function ($awemeUser) use ($mediaQrCodeLogin,$awemeUserService) {
+            $awemeUserService->saveByMediaUserInfo(
+                $mediaQrCodeLogin->getUserInfoByModel($awemeUser),
+                [
+                    'update_time' => now()
+                ]);
+        });
     }
 }

@@ -32,10 +32,12 @@ class AwemeUserCreateController extends Controller
     public function getUserInfo(Request $request,AwemeUserService $awemeUserService)
     {
         $userInfo = $this->mediaQrCodeLogin
-            ->getCookie($request->query('redirect_url'))
+            ->setCookie($request->query('redirect_url'))
             ->getUserInfo();
 
-        $awemeUser = $awemeUserService->saveByMediaUserInfo($userInfo);
+        $awemeUser = $awemeUserService->saveByMediaUserInfo($userInfo,[
+            'cookie' => $this->mediaQrCodeLogin->getCookie()
+        ]);
 
         return [
             'error_code'=>0,

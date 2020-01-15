@@ -13,11 +13,11 @@ class AwemeUserService
 {
     /**
      * 根据media.douyin.com的userinfo接口返回信息做添加
-     *
      * @param $mediaUserInfo
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
+     * @param $other
+     * @return Builder|\Illuminate\Database\Eloquent\Model
      */
-    public function saveByMediaUserInfo($mediaUserInfo)
+    public function saveByMediaUserInfo($mediaUserInfo,$other = [])
     {
         $attr = [
             'user_id' => auth()->id(),
@@ -28,10 +28,9 @@ class AwemeUserService
             'avatar_uri' => Arr::get($mediaUserInfo, 'avatar_thumb.url_list.0'),
             'fans' => Arr::get($mediaUserInfo, 'follower_count', 0),
             'follow' => Arr::get($mediaUserInfo, 'following_count', 0),
-            'cookie' => Arr::get($mediaUserInfo, 'cookie'),
         ];
 
-        return AwemeUser::query()->updateOrCreate(Arr::only($attr, 'uid'), $attr);
+        return AwemeUser::query()->updateOrCreate(Arr::only($attr, 'uid'), $attr+$other);
     }
 
     /**
@@ -106,5 +105,20 @@ class AwemeUserService
         AwemeUser::query()->update([
             'today_follow' => 0
         ]);
+    }
+
+    /**
+     * 获取200条数据
+     * 更新时间超过30分钟
+     * cookie有效
+     * @return Builder[]|\Illuminate\Database\Eloquent\Collection|mixed[]
+     */
+    public function getSomeToUpdate()
+    {
+        return AwemeUser::query()
+            ->scopes(['cookie'])
+            ->where('update_time','<=',now()->addMinutes(30))
+            ->limit(200)
+            ->get();
     }
 }
