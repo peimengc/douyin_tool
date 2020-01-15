@@ -67,6 +67,7 @@ class AwemeUserService
             ->scopes(['cookie'])
             ->where('today_follow', '<', 100)
             ->whereNotIn('id', $followTask->awemeUser->followeds->pluck('id')->push($followTask->awemeUser->id))
+            ->inRandomOrder()
             ->limit($followTask->rel_target_fans)
             ->get();
     }

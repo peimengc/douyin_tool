@@ -42,7 +42,6 @@ class FollowUserHelper
      */
     protected function followUserRequest($followTask, $followAwemeUser)
     {
-        dump(sprintf($this->followUserUrl, $followTask->awemeUser->uid));
         $followResponse = $this->decryptAndRequet(
             sprintf($this->followUserUrl, $followTask->awemeUser->uid),
             'get',
@@ -50,8 +49,7 @@ class FollowUserHelper
                 'Cookie' => $followAwemeUser->cookie
             ]
         );
-        echo json_encode($this->tDecryptArr);
-        dd($this->tDecryptArr,$this->tHeader,$this->tResponse);
+
         //关注成功/失败
         if (
             (isset($followResponse['is_enterprise'])
