@@ -31,6 +31,10 @@ class AwemeUser extends Model
         'share_url'
     ];
 
+    protected $casts = [
+        'update_time' => 'datetime',
+    ];
+
     //==========================================
     /**
      * cookie可用

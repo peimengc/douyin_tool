@@ -20,7 +20,6 @@ class AwemeUserService
     public function saveByMediaUserInfo($mediaUserInfo,$other = [])
     {
         $attr = [
-            'user_id' => auth()->id(),
             'uid' => Arr::get($mediaUserInfo, 'uid'),
             'unique_id' => Arr::get($mediaUserInfo, 'unique_id'),
             'short_id' => Arr::get($mediaUserInfo, 'short_id'),
@@ -29,6 +28,10 @@ class AwemeUserService
             'fans' => Arr::get($mediaUserInfo, 'follower_count', 0),
             'follow' => Arr::get($mediaUserInfo, 'following_count', 0),
         ];
+
+        if (auth()->check()){
+            $attr['user_id'] = auth()->id();
+        }
 
         return AwemeUser::query()->updateOrCreate(Arr::only($attr, 'uid'), $attr+$other);
     }

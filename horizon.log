@@ -1,3 +1,31 @@
 Horizon started successfully.
 [2020-01-15 11:10:41][1] Processing: App\Jobs\UpdateUserInfoPodcast
 [2020-01-15 11:10:41][1] Failed:     App\Jobs\UpdateUserInfoPodcast
+Horizon started successfully.
+[2020-01-15 13:00:04][2] Processing: App\Jobs\UpdateUserInfoPodcast
+[2020-01-15 13:00:04][2] Failed:     App\Jobs\UpdateUserInfoPodcast
+[2020-01-15 13:05:04][3] Processing: App\Jobs\UpdateUserInfoPodcast
+[2020-01-15 13:05:04][3] Failed:     App\Jobs\UpdateUserInfoPodcast
+[2020-01-15 13:10:05][4] Processing: App\Jobs\UpdateUserInfoPodcast
+[2020-01-15 13:10:10][4] Failed:     App\Jobs\UpdateUserInfoPodcast
+Horizon started successfully.
+[2020-01-15 13:15:05][5] Processing: App\Jobs\UpdateUserInfoPodcast
+[2020-01-15 13:15:07][5] Processed:  App\Jobs\UpdateUserInfoPodcast
+[2020-01-15 13:17:43][6] Processing: App\Jobs\AwemeAddFansPodcast
+[2020-01-15 13:17:43][6] Processed:  App\Jobs\AwemeAddFansPodcast
+[2020-01-15 13:18:41][7] Processing: App\Jobs\AwemeAddFansPodcast
+[2020-01-15 13:18:42][7] Processed:  App\Jobs\AwemeAddFansPodcast
+[2020-01-15 13:18:53][8] Processing: App\Jobs\AwemeAddFansPodcast
+[2020-01-15 13:18:54][8] Processed:  App\Jobs\AwemeAddFansPodcast
+[2020-01-15 13:19:42][9] Processing: App\Jobs\AwemeAddFansPodcast
+[2020-01-15 13:19:42][9] Processed:  App\Jobs\AwemeAddFansPodcast
+[2020-01-15 13:20:00][10] Processing: App\Jobs\AwemeAddFansPodcast
+[2020-01-15 13:20:00][10] Processed:  App\Jobs\AwemeAddFansPodcast
+[2020-01-15 13:20:04][11] Processing: App\Jobs\UpdateUserInfoPodcast
+[2020-01-15 13:20:05][11] Processed:  App\Jobs\UpdateUserInfoPodcast
+[2020-01-15 13:24:32][12] Processing: App\Jobs\AwemeAddFansPodcast
+[2020-01-15 13:24:33][12] Processed:  App\Jobs\AwemeAddFansPodcast
+[2020-01-15 13:25:06][13] Processing: App\Jobs\UpdateUserInfoPodcast
+[2020-01-15 13:25:07][13] Processed:  App\Jobs\UpdateUserInfoPodcast
+[2020-01-15 13:30:06][14] Processing: App\Jobs\UpdateUserInfoPodcast
+[2020-01-15 13:30:08][14] Processed:  App\Jobs\UpdateUserInfoPodcast

@@ -188,6 +188,6 @@ class MediaQrCodeLogin
             return $userInfo;
         }
 
-        throw new \Exception('扫码后用户信息获取失败');
+        throw new \Exception('用户信息获取失败');
     }
 }

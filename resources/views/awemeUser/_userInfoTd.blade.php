@@ -10,7 +10,7 @@
                     <span>抖音号：{{ $awemeUser->unique_id }}</span>
                 </div>
                 <div class="font08 c-dgray">
-                    <span>更新于：{{ $awemeUser->updated_at->diffForHumans() }}</span>
+                    <span>更新于：{{ $awemeUser->update_time->diffForHumans() }}</span>
                 </div>
             </div>
         </div>

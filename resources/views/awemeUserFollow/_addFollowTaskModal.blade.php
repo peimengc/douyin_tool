@@ -11,7 +11,7 @@
                 <form method="post" action="">
                     @csrf
                     <div class="form-group">
-                        <label for="target_fans">目标粉丝</label>
+                        <label for="target_fans">增粉数量</label>
                         <input type="number" class="form-control" name="target_fans" id="target_fans" value="">
                     </div>
                 </form>
