@@ -36,6 +36,6 @@ Route::group([
 });
 
 Route::get('test',function () {
-    \App\Jobs\UpdateUserInfoPodcast::dispatch(\App\AwemeUser::query()->first());
+    \App\Jobs\AwemeUserTodayFollowZeroPodcast::dispatch();
 });
 

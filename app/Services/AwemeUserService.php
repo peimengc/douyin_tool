@@ -100,4 +100,11 @@ class AwemeUserService
             })
             ->findOrFail($awemeUserId);
     }
+
+    public function todayFollowZero()
+    {
+        AwemeUser::query()->update([
+            'today_follow' => 0
+        ]);
+    }
 }
